@@ -1,0 +1,43 @@
+Để hiển thị các bài viết liên quan theo category trong WordPress, bạn có thể sử dụng hàm query_posts() để lấy danh sách các bài viết có cùng category với bài viết hiện tại, sau đó sử dụng vòng lặp while để hiển thị chúng.
+
+Dưới đây là một đoạn mã PHP để hiển thị 3 bài viết liên quan theo category của bài viết hiện tại:
+<?php
+// Lấy danh sách category của bài viết hiện tại
+$category = get_the_category();
+
+// Nếu bài viết hiện tại có ít hơn 1 category, thoát khỏi hàm
+if (count($category) < 1) {
+    return;
+}
+
+// Lấy ID của category đầu tiên của bài viết hiện tại
+$category_id = $category[0]->cat_ID;
+
+// Lấy danh sách 3 bài viết có cùng category với bài viết hiện tại
+$args = array(
+    'cat' => $category_id,
+    'posts_per_page' => 3,
+    'post__not_in' => array(get_the_ID())
+);
+query_posts($args);
+
+// Hiển thị danh sách bài viết liên quan
+if (have_posts()) {
+    echo '<ul>';
+    while (have_posts()) {
+        the_post();
+        echo '<li><a href="' . get_permalink() . '">' . get_the_title() . '</a></li>';
+    }
+    echo '</ul>';
+}
+
+// Khôi phục lại query gốc
+wp_reset_query();
+?>
+Trong đoạn mã trên, chúng ta sử dụng hàm get_the_category() để lấy danh sách category của bài viết hiện tại. Sau đó, chúng ta kiểm tra xem bài viết có ít hơn 1 category hay không. Nếu có, chúng ta sẽ thoát khỏi hàm.
+
+Nếu bài viết hiện tại có ít hơn hoặc bằng 1 category, chúng ta sử dụng hàm query_posts() để lấy danh sách 3 bài viết có cùng category với bài viết hiện tại. Chúng ta cũng sử dụng tham số post__not_in để loại bỏ bài viết hiện tại khỏi danh sách.
+
+Sau đó, chúng ta sử dụng vòng lặp while để hiển thị danh sách bài viết liên quan. Trong ví dụ này, chúng ta đơn giản là hiển thị tiêu đề của bài viết và liên kết đến trang chi tiết của nó.
+
+Cuối cùng, chúng ta sử dụng hàm wp_reset_query() để khôi phục lại query gốc của trang.
