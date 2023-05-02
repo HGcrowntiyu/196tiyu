@@ -1,0 +1,28 @@
+Để truy vấn bài viết theo custom field, chúng ta có thể sử dụng các plugin hay các thư viện hỗ trợ trên nền tảng CMS cụ thể mà mình đang sử dụng. Dưới đây là một ví dụ truy vấn bài viết trong WordPress theo custom field:
+$args = array(
+    'post_type' => 'post',
+    'meta_query' => array(
+        array(
+            'key' => 'my_custom_field',
+            'value' => 'my_custom_value',
+            'compare' => '='
+        )
+    )
+);
+
+$query = new WP_Query( $args );
+
+if ( $query->have_posts() ) {
+    while ( $query->have_posts() ) {
+        $query->the_post();
+        // Do something with the post here
+    }
+}
+
+wp_reset_postdata();
+Trong đó:
+
+post_type: là kiểu bài viết mà bạn muốn truy vấn. Ở đây, chúng ta đang truy vấn bài viết thường (post), nhưng bạn cũng có thể thay đổi thành kiểu bài viết khác như page, attachment, hoặc custom post type.
+meta_query: là một mảng chứa các thông tin về custom field mà bạn muốn truy vấn. Trong ví dụ trên, chúng ta đang truy vấn bài viết có giá trị của custom field my_custom_field bằng my_custom_value.
+compare: là phép so sánh giữa giá trị của custom field và giá trị được truy vấn. Ở đây, chúng ta đang sử dụng phép so sánh bằng (=).
+Lưu ý: Các tham số và cách truy vấn có thể khác nhau tùy theo nền tảng CMS và các plugin hay thư viện hỗ trợ. Bạn cần tham khảo tài liệu của nền tảng CMS và các plugin hay thư viện tương ứng để biết thêm chi tiết.
