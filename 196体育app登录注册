@@ -1,0 +1,26 @@
+  Để share một bài viết trên mạng xã hội, chúng ta cần sử dụng các API được cung cấp bởi các nền tảng mạng xã hội. Dưới đây là một ví dụ về việc sử dụng API của Facebook để share một bài viết:
+  import facebook
+
+# Khai báo các thông tin cần thiết
+access_token = "your-access-token"
+page_id = "your-page-id"
+message = "your-message"
+link = "your-link"
+
+# Tạo kết nối tới Graph API của Facebook
+graph = facebook.GraphAPI(access_token)
+
+# Share bài viết
+graph.put_object(
+    parent_object=page_id,
+    connection_name="feed",
+    message=message,
+    link=link
+)
+Trong đó:
+
+access_token: là mã truy cập cho tài khoản của bạn. Để lấy được access token, bạn cần đăng nhập vào tài khoản Facebook của mình và tạo một ứng dụng trên đó. Sau đó, bạn có thể lấy access token từ trang quản lý ứng dụng của mình.
+page_id: là ID của trang Facebook mà bạn muốn share bài viết lên.
+message: là nội dung bạn muốn chia sẻ cùng với bài viết.
+link: là đường dẫn tới bài viết bạn muốn share.
+Lưu ý: Để sử dụng được API của các nền tảng mạng xã hội, bạn cần đăng ký và có các thông tin đăng nhập và xác thực tương ứng. Ngoài ra, mỗi nền tảng có thể yêu cầu các tham số và cách gọi API khác nhau, vì vậy bạn cần tham khảo tài liệu API của từng nền tảng để biết thêm chi tiết.
