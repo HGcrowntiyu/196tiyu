@@ -1,0 +1,12 @@
+Đoạn code dưới đây sử dụng hàm get_the_excerpt() để lấy nội dung bài viết rút gọn:
+<?php 
+// Lấy ID của bài viết hiện tại
+$post_id = get_the_ID(); 
+
+// Lấy nội dung bài viết rút gọn
+$excerpt = get_the_excerpt($post_id);
+
+// Hiển thị nội dung bài viết rút gọn
+echo $excerpt;
+?>
+Bạn có thể sử dụng đoạn code trên trong single.php hoặc file template của bài viết để hiển thị nội dung bài viết rút gọn. Nếu bài viết không có nội dung rút gọn thì hàm get_the_excerpt() sẽ trả về mặc định là đoạn mô tả của bài viết.
