@@ -1,0 +1,18 @@
+Đoạn code dưới đây sử dụng hàm get_attached_media() để lấy tất cả hình ảnh trong nội dung bài viết:
+<?php 
+// Lấy ID của bài viết hiện tại
+$post_id = get_the_ID(); 
+
+// Lấy tất cả hình ảnh trong nội dung bài viết
+$images = get_attached_media('image', $post_id);
+
+// Hiển thị danh sách hình ảnh
+foreach ($images as $image) {
+    // Lấy đường dẫn đến hình ảnh
+    $image_url = wp_get_attachment_url($image->ID);
+    
+    // Hiển thị hình ảnh
+    echo '<img src="'.$image_url.'">';
+}
+?>
+Bạn có thể sử dụng đoạn code trên trong single.php hoặc file template của bài viết để hiển thị danh sách hình ảnh trong nội dung bài viết.
