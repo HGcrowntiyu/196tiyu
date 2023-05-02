@@ -1,0 +1,33 @@
+Để tính lượt view cho bài viết trong WordPress, ta có thể sử dụng plugin hoặc tự viết mã nguồn để tính. Dưới đây là một đoạn code đơn giản để tính lượt view cho bài viết trong WordPress:
+// Hàm tăng số lần xem cho bài viết
+function set_post_views($postID) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+// Hàm hiển thị số lần xem của bài viết
+function get_post_views($postID){
+    $count_key = 'post_views_count';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0 View";
+    }
+    return $count.' Views';
+}
+Cách sử dụng:
+
+Gọi hàm set_post_views() trong file single.php khi hiển thị bài viết để tăng số lượt xem cho bài viết:
+set_post_views(get_the_ID());
+Gọi hàm get_post_views() để hiển thị số lượt xem cho bài viết:
+echo get_post_views(get_the_ID());
+Lưu ý: Đoạn code này chỉ tính số lượt xem trên trang single của bài viết, nếu muốn tính số lượt xem cho trang chủ hoặc các trang khác, cần sửa đổi phù hợp.
